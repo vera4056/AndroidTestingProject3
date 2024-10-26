@@ -26,13 +26,13 @@ public class MainTests {
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
-    public void mainScreenLoad() {
-
+    public void mainScreenLoad() throws InterruptedException {
+        Thread.sleep(7000);
         try {
             loginSteps.waitAuthorizationPage();
             loginSteps.validLogin();
         } catch (Exception e) {
-            mainMenuSteps.mainScreenLoad();
+            mainMenuSteps.checkMenuButton();
         }
     }
 
@@ -40,20 +40,16 @@ public class MainTests {
     public void displayMainMenuTest() {
         mainMenuSteps.menuButtons();
 
-
     }
 
     @Test
     public void goToNewsPageTest() {
-
-
         mainMenuSteps.goToNews();
 
     }
 
     @Test
     public void goToAboutPageTest() {
-
         mainMenuSteps.goToAbout();
     }
 }

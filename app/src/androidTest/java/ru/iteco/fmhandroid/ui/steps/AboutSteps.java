@@ -32,6 +32,7 @@ public class AboutSteps {
 
     }
 
+
     public void displayAboutSection() {
         Allure.step("Отображение страницы About с ссылками на Privacy Policy и Terms of use");
         menuButton.perform(click());

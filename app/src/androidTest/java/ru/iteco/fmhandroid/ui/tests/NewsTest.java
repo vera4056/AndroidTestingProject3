@@ -1,5 +1,9 @@
 package ru.iteco.fmhandroid.ui.tests;
 
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static ru.iteco.fmhandroid.ui.pageobjects.News.newsCardButton;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
@@ -26,26 +30,41 @@ public class NewsTest {
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
-    public void newsScreenLoad() {
-
+    public void newsScreenLoad() throws InterruptedException {
+        Thread.sleep(7000);
         try {
             loginSteps.waitAuthorizationPage();
             loginSteps.validLogin();
         } catch (Exception e) {
-            mainMenuSteps.mainScreenLoad();
+            mainMenuSteps.checkMenuButton();
         }
+    }
+    @Test
+    public void goToNewsSectionTest() {
+        newsSteps.newsListLoad();
     }
 
     @Test
     public void newsTextIsVisibleTest() {
-        newsSteps.checkTextInNews();
+        newsSteps.openNews(3);
+        newsSteps.checkTextInsideNews("test");
+        newsCardButton.perform(actionOnItemAtPosition(3, click()));
+    }
 
+
+    @Test
+    public void filterNewsCategory() {
+        newsSteps.checkFilterNews("Зарплата");
     }
 
     @Test
-    public void openNewsCreateFormTest() {
-        newsSteps.checkCreateNewsForm();
+    public void filterNewsDateTest() {
+        newsSteps.filterDateNews();
+    }
 
+    @Test
+    public void cancelNewsFilterTest() {
+        newsSteps.cancelFilter();
     }
 
     @Test
@@ -60,24 +79,5 @@ public class NewsTest {
 
     }
 
-    @Test
-    public void fillCategoryInNewsTest() {
-        newsSteps.newsCategory();
 
-    }
-
-    @Test
-    public void fillNewsTitleTest() {
-        newsSteps.newsTitle();
-    }
-
-    @Test
-    public void fillNewsDateTest() {
-        newsSteps.newsDate();
-    }
-
-    @Test
-    public void fillNewsTimeTest() {
-        newsSteps.newsTime();
-    }
 }

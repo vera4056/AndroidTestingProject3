@@ -13,6 +13,7 @@ public class MainMenu {
 
     public static ViewInteraction menuButton = onView(withId(R.id.main_menu_image_button));
     public static ViewInteraction textMenuButton = onView(withText("Main"));
+    public static ViewInteraction logOutTextButton = onView(withText("Log out"));
     public static ViewInteraction missionButton = onView(withId(R.id.our_mission_image_button));
     public static ViewInteraction textMissionButton = onView(withText("Our Mission"));
     public static ViewInteraction authorizationButton = onView(withId(R.id.authorization_image_button));

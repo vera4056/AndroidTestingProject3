@@ -31,7 +31,7 @@ public class LogInLogOutTests {
         Thread.sleep(7000);
         try {
             loginSteps.waitAuthorizationPage();
-        } catch (NoMatchingViewException e) {
+        } catch (Exception e) {
 
             logOutSteps.logOut();
             loginSteps.waitAuthorizationPage();
@@ -61,7 +61,7 @@ public class LogInLogOutTests {
     @Test
     public void logInWithUnValidDataTest() {
         loginSteps.invalidLoginOrPassword();
-
+        mainMenuSteps.checkMenuButton();
 
     }
 

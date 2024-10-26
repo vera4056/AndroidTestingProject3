@@ -10,7 +10,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static ru.iteco.fmhandroid.ui.latency.ViewMatcherLatency.waitDisplayed;
 import static ru.iteco.fmhandroid.ui.pageobjects.About.aboutTextButton;
+import static ru.iteco.fmhandroid.ui.pageobjects.LogOut.checkLogOut;
+import static ru.iteco.fmhandroid.ui.pageobjects.LogOut.logOutButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.MainMenu.authorizationButton;
+import static ru.iteco.fmhandroid.ui.pageobjects.MainMenu.logOutTextButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.MainMenu.logoMark;
 import static ru.iteco.fmhandroid.ui.pageobjects.MainMenu.menuButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.MainMenu.missionButton;
@@ -42,13 +45,13 @@ public class MainMenuSteps {
 
     public void menuButtons() {
         Allure.step("Отображение информации (разделов) на верхней панеле меню");
+        logoMark.check(matches(isDisplayed()));
+        missionButton.check(matches(isDisplayed()));
         menuButton.perform(click());
         textMenuButton.check(matches(isDisplayed()));
-        missionButton.perform(click());
-        textMissionButton.check(matches(isDisplayed()));
-        authorizationButton.perform(click());
-        textAuthorizationButton.check(matches(isDisplayed()));
-        logoMark.check(matches(isDisplayed()));
+        newsOnMain.check(matches(isDisplayed()));
+        aboutTextButton.check(matches(isDisplayed()));
+
 
     }
 

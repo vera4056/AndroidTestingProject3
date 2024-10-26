@@ -1,5 +1,10 @@
 package ru.iteco.fmhandroid.ui.tests;
 
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static ru.iteco.fmhandroid.ui.pageobjects.LoveIsAll.missionTitleText;
+import static ru.iteco.fmhandroid.ui.pageobjects.LoveIsAll.openCloseCardButton;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
@@ -26,14 +31,20 @@ public class LoveIsAllTest {
             new ActivityScenarioRule<>(AppActivity.class);
 
     @Before
-    public void waitLoveIsAllLoad() {
-
+    public void waitLoveIsAllLoad() throws InterruptedException {
+        Thread.sleep(7000);
         try {
             loginSteps.waitAuthorizationPage();
             loginSteps.validLogin();
         } catch (Exception e) {
-            mainMenuSteps.mainScreenLoad();
+            mainMenuSteps.checkMenuButton();
         }
+    }
+
+    @Test
+    public void checkLoveIsAllSection() {
+        loveIsAllSteps.checkLoveIsAllElements();
+
     }
 
     @Test
@@ -44,8 +55,9 @@ public class LoveIsAllTest {
 
     @Test
     public void checkQuotesLoveIsAll() {
-        loveIsAllSteps.quotesLoveIsAll();
-
+        loveIsAllSteps.checkOpenQuote(1);
+        loveIsAllSteps.checkTextInsideQuote("Нет шаблона и стандарта, есть только дух, который живет в разных домах по-разному. Но всегда он добрый, любящий и помогающий.");
+        openCloseCardButton.perform(actionOnItemAtPosition(1, click()));
     }
 
     @Test
