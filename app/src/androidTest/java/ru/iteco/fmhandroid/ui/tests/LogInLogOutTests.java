@@ -1,7 +1,6 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 
-import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
@@ -25,9 +24,8 @@ public class LogInLogOutTests {
             new ActivityScenarioRule<>(AppActivity.class);
 
 
-
     @Before
-    public void waitForLoginFieldId () throws InterruptedException {
+    public void waitForLoginFieldId() throws InterruptedException {
         Thread.sleep(7000);
         try {
             loginSteps.waitAuthorizationPage();
@@ -45,14 +43,14 @@ public class LogInLogOutTests {
     MainMenuSteps mainMenuSteps = new MainMenuSteps();
 
 
-   @Test
+    @Test
     public void testCheckScreenElements() {
 
-       loginSteps.isLogInElements();
+        loginSteps.isLogInElements();
     }
 
     @Test
-    public void logInWithValidDataTest()  {
+    public void logInWithValidDataTest() {
         loginSteps.validLogin();
         mainMenuSteps.checkMenuButton();
 

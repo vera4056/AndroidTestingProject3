@@ -1,9 +1,5 @@
 package ru.iteco.fmhandroid.ui.tests;
 
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static ru.iteco.fmhandroid.ui.pageobjects.News.newsCardButton;
-
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
@@ -39,6 +35,7 @@ public class NewsTest {
             mainMenuSteps.checkMenuButton();
         }
     }
+
     @Test
     public void goToNewsSectionTest() {
         newsSteps.newsListLoad();
@@ -46,20 +43,13 @@ public class NewsTest {
 
     @Test
     public void newsTextIsVisibleTest() {
-        newsSteps.openNews(3);
-        newsSteps.checkTextInsideNews("test");
-        newsCardButton.perform(actionOnItemAtPosition(3, click()));
+        newsSteps.openNews(2, "Consequuntur architecto ducimus.");
     }
-
 
     @Test
     public void filterNewsCategory() {
         newsSteps.checkFilterNews("Зарплата");
-    }
 
-    @Test
-    public void filterNewsDateTest() {
-        newsSteps.filterDateNews();
     }
 
     @Test
@@ -67,17 +57,34 @@ public class NewsTest {
         newsSteps.cancelFilter();
     }
 
+
     @Test
     public void createNewsTest() {
-        newsSteps.creatingNews();
+        newsSteps.createNews("День рождения", "Вечеринка", "18.11.2024",
+                "18.15", "В гавайском стиле");
+
+
+    }
+
+    @Test
+    public void createNewsWithEmptyDataTest() {
+        newsSteps.createEmptyNews("", "", "",
+                "", "");
+
 
     }
 
     @Test
     public void deleteNewsTest() {
-        newsSteps.deletingNews();
+        newsSteps.deletingNews("День рождения", "Дружба", "15.11.2024",
+                "18.00", "Идем в кино");
 
     }
 
+    @Test
+    public void editingNewsTest() {
+        newsSteps.editingNews();
+
+    }
 
 }

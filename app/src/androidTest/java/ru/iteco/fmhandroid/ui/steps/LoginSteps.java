@@ -1,32 +1,24 @@
 package ru.iteco.fmhandroid.ui.steps;
 
-import static android.os.Build.VERSION_CODES.R;
+/*import static android.os.Build.VERSION_CODES.R;*/
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 import static ru.iteco.fmhandroid.ui.latency.ViewMatcherLatency.waitDisplayed;
 import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.authorization;
-import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.emptyAuthField;
-import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.emptyAuthorization;
 import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.enterButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.loginFieldText;
 import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.passwordFieldId;
-import static ru.iteco.fmhandroid.ui.pageobjects.LogIn.wrongAuthorization;
-
-import androidx.test.espresso.ViewInteraction;
 
 import io.qameta.allure.kotlin.Allure;
-
 import ru.iteco.fmhandroid.R;
 
 public class LoginSteps {
