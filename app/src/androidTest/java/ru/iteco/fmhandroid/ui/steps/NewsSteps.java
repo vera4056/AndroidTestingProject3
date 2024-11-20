@@ -28,7 +28,6 @@ import static ru.iteco.fmhandroid.ui.pageobjects.News.newsOnMain;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.okButtonMessage;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.publishDate;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.recyclerView;
-import static ru.iteco.fmhandroid.ui.pageobjects.News.saveButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.timeText;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.titleText;
 
@@ -125,7 +124,7 @@ public class NewsSteps {
         publicationDate(date);
         selectTime(time);
         newsDescription(description);
-        saveButton.perform(scrollTo(), click());
+        clickSaveButtonWithScroll();
         onView(withText("Вечеринка")).check(matches(isDisplayed()));
 
 

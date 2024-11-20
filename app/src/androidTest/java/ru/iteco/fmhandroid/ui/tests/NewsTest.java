@@ -60,7 +60,7 @@ public class NewsTest {
 
     @Test
     public void createNewsTest() {
-        newsSteps.createNews("День рождения", "Вечеринка", "19.11.2024",
+        newsSteps.createNews("День рождения", "Вечеринка", "21.11.2024",
                 "18.15", "В гавайском стиле");
 
 
