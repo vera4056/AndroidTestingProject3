@@ -37,7 +37,11 @@ import androidx.test.espresso.action.ViewActions;
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 
+
 public class NewsSteps {
+
+    private final int saveButtonId = R.id.save_button;
+
     public void newsListLoad() {
         Allure.step("Загрузка списка новостей");
         onView(isRoot()).perform(waitDisplayed(R.id.news_list_recycler_view, 10000));
@@ -102,6 +106,12 @@ public class NewsSteps {
         descriptionText.perform(replaceText(description), ViewActions.closeSoftKeyboard());
     }
 
+    public void clickSaveButtonWithScroll() {
+        Allure.step("Клик со скроллом по кнопке c id: " + saveButtonId);
+        onView((withId(saveButtonId))).perform(scrollTo(), click());
+    }
+
+
     public void createNews(String category, String title, String date,
                            String time, String description) {
         Allure.step("Создать новость с валидными данными на кириллице");
@@ -115,7 +125,7 @@ public class NewsSteps {
         publicationDate(date);
         selectTime(time);
         newsDescription(description);
-        saveButton.perform(scrollTo()).perform(click());
+        saveButton.perform(scrollTo(), click());
         onView(withText("Вечеринка")).check(matches(isDisplayed()));
 
 
@@ -135,7 +145,7 @@ public class NewsSteps {
         publicationDate(date);
         selectTime(time);
         newsDescription(description);
-        saveButton.perform(scrollTo(), click());
+        clickSaveButtonWithScroll();
         onView(withText("Fill empty fields")).check(matches(isDisplayed()));
 
     }
@@ -152,7 +162,7 @@ public class NewsSteps {
         publicationDate(date);
         selectTime(time);
         newsDescription(description);
-        saveButton.perform(scrollTo(), click());
+        clickSaveButtonWithScroll();
         onView(withText("Дружба")).check(matches(isDisplayed()));
         deleteButton.perform(click());
         okButtonMessage.perform(click());
