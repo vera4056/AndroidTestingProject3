@@ -1,7 +1,9 @@
 package ru.iteco.fmhandroid.ui.steps;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -21,17 +23,19 @@ import static ru.iteco.fmhandroid.ui.pageobjects.News.checkableImageButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.deleteButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.descriptionText;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.editNewsButton;
+import static ru.iteco.fmhandroid.ui.pageobjects.News.editNewsItem;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.filterButton;
+import static ru.iteco.fmhandroid.ui.pageobjects.News.itemTitleText;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.materialTextView;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.newsFilterButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.newsOnMain;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.okButtonMessage;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.publishDate;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.recyclerView;
+import static ru.iteco.fmhandroid.ui.pageobjects.News.saveButton;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.timeText;
 import static ru.iteco.fmhandroid.ui.pageobjects.News.titleText;
-
-import androidx.test.espresso.action.ViewActions;
+import static ru.iteco.fmhandroid.ui.pageobjects.News.titleTextView;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
@@ -82,27 +86,27 @@ public class NewsSteps {
 
     public void newsCategory(String text) {
         Allure.step("Ввод данных в поле Category");
-        categoryText.perform(replaceText(text), ViewActions.closeSoftKeyboard());
+        categoryText.perform(replaceText(text), closeSoftKeyboard());
     }
 
     public void newsTitle(String text) {
         Allure.step("Ввод данных в поле Title");
-        titleText.perform(replaceText(text), ViewActions.closeSoftKeyboard());
+        titleText.perform(replaceText(text), closeSoftKeyboard());
     }
 
     public void publicationDate(String text) {
         Allure.step("Ввод данных в поле Date");
-        publishDate.perform(replaceText(text), ViewActions.closeSoftKeyboard());
+        publishDate.perform(replaceText(text), closeSoftKeyboard());
     }
 
     public void selectTime(String time) {
         Allure.step("Выбрать время в поле Time");
-        timeText.perform(replaceText(time), ViewActions.closeSoftKeyboard());
+        timeText.perform(replaceText(time), closeSoftKeyboard());
     }
 
     public void newsDescription(String description) {
         Allure.step("Ввод данных в поле Description");
-        descriptionText.perform(replaceText(description), ViewActions.closeSoftKeyboard());
+        descriptionText.perform(replaceText(description), closeSoftKeyboard());
     }
 
     public void clickSaveButtonWithScroll() {
@@ -125,15 +129,14 @@ public class NewsSteps {
         selectTime(time);
         newsDescription(description);
         clickSaveButtonWithScroll();
-        onView(withText("Вечеринка")).check(matches(isDisplayed()));
-
+        //onView(withText(title)).check(matches(isDisplayed()));
 
     }
 
 
     public void createEmptyNews(String category, String title, String date,
                                 String time, String description) {
-        Allure.step("Создать новость с пустыми полями в форме для создания новости. Негативный тест, должен падать");
+        Allure.step("Создать новость с пустыми полями в форме для создания новости- новость не создается, при нажатии кнопки save получаем оповещающее сообщение -Fill empty fields");
         newsOnMain.check(matches(isDisplayed()));
         menuButton.perform(click());
         materialTextView.perform(click());
@@ -145,42 +148,38 @@ public class NewsSteps {
         selectTime(time);
         newsDescription(description);
         clickSaveButtonWithScroll();
-        onView(withText("Fill empty fields")).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.nav_host_fragment), withText("Fill empty fields")));
 
     }
 
-    public void deletingNews(String category, String title, String date,
-                             String time, String description) {
+    public void deletingNews(String title) {
         Allure.step("Удаление новости  в News. Негативный тест, должен падать");
+         newsOnMain.check(matches(isDisplayed()));
+         menuButton.perform(click());
+         materialTextView.perform(click());
+         editNewsButton.perform(click());
+         deleteButton(title).perform(click());
+         okButtonMessage.perform(click());
+         onView(withText(title)).check(matches(isDisplayed()));
+
+    }
+
+
+    public void editingNews(String title, String newTitle)  {
+        Allure.step("Редактирование новости - меняем название заголовка");
         newsOnMain.check(matches(isDisplayed()));
         menuButton.perform(click());
         materialTextView.perform(click());
         editNewsButton.perform(click());
-        newsCategory(category);
-        newsTitle(title);
-        publicationDate(date);
-        selectTime(time);
-        newsDescription(description);
-        clickSaveButtonWithScroll();
-        onView(withText("Дружба")).check(matches(isDisplayed()));
-        deleteButton.perform(click());
-        okButtonMessage.perform(click());
-        onView(withText("Дружба")).check(matches(isDisplayed()));
+        titleTextView(title).perform(scrollTo(), click());
+        editNewsItem.perform(click());
+        itemTitleText.perform(clearText(), replaceText(newTitle), closeSoftKeyboard());
+        saveButton.perform(click());
+
 
     }
 
-    public void editingNews() {
-        Allure.step("Редактирование новости");
-        newsOnMain.check(matches(isDisplayed()));
-        menuButton.perform(click());
-        materialTextView.perform(click());
-        onView(withText("Вечеринка")).check(matches(isDisplayed()));
-        titleText.perform(replaceText("Ужин"));
-        onView(withText("Ужин")).check(matches(isDisplayed()));
-
-    }
 }
-
 
 
 

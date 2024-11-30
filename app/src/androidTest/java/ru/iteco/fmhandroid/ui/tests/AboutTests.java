@@ -44,6 +44,7 @@ public class AboutTests {
     @Test
     public void displayAboutSectionsTest() {
         aboutSteps.displayAboutSection();
+
     }
 
     @Test

@@ -60,30 +60,26 @@ public class NewsTest {
 
     @Test
     public void createNewsTest() {
-        newsSteps.createNews("День рождения", "Вечеринка", "21.11.2024",
-                "18.15", "В гавайском стиле");
-
+        newsSteps.createNews("Объявление", "Объявление", "30.11.2024",
+                "06:00", "Party");
 
     }
 
     @Test
     public void createNewsWithEmptyDataTest() {
-        newsSteps.createEmptyNews("", "", "",
-                "", "");
-
+        newsSteps.createEmptyNews("", "", "", "", "");
 
     }
 
     @Test
     public void deleteNewsTest() {
-        newsSteps.deletingNews("День рождения", "Дружба", "15.11.2024",
-                "18.00", "Идем в кино");
+        newsSteps.deletingNews("Ш");
 
     }
 
     @Test
     public void editingNewsTest() {
-        newsSteps.editingNews();
+        newsSteps.editingNews("gfgh", "КуКу");
 
     }
 
