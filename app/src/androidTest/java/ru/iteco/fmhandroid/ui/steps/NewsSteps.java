@@ -89,14 +89,14 @@ public class NewsSteps {
         categoryText.perform(replaceText(text), closeSoftKeyboard());
     }
 
-    public void newsTitle(String text) {
+    public void newsTitle(String title) {
         Allure.step("Ввод данных в поле Title");
-        titleText.perform(replaceText(text), closeSoftKeyboard());
+        titleText.perform(replaceText(title), closeSoftKeyboard());
     }
 
-    public void publicationDate(String text) {
+    public void publicationDate(String date) {
         Allure.step("Ввод данных в поле Date");
-        publishDate.perform(replaceText(text), closeSoftKeyboard());
+        publishDate.perform(replaceText(date), closeSoftKeyboard());
     }
 
     public void selectTime(String time) {
@@ -112,6 +112,15 @@ public class NewsSteps {
     public void clickSaveButtonWithScroll() {
         Allure.step("Клик со скроллом по кнопке c id: " + saveButtonId);
         onView((withId(saveButtonId))).perform(scrollTo(), click());
+
+    }
+
+    public void checkCreatedNews(String description) {
+        Allure.step("Проверка наличия вновь созданной новости");
+        onView(withId(R.id.news_list_recycler_view)).perform(actionOnItemAtPosition(0, click()));
+        onView(allOf(withId(R.id.news_item_description_text_view), withText(description))).check(matches(isDisplayed()));
+
+
     }
 
 
@@ -129,7 +138,8 @@ public class NewsSteps {
         selectTime(time);
         newsDescription(description);
         clickSaveButtonWithScroll();
-        //onView(withText(title)).check(matches(isDisplayed()));
+        checkCreatedNews(description);
+
 
     }
 
@@ -154,18 +164,18 @@ public class NewsSteps {
 
     public void deletingNews(String title) {
         Allure.step("Удаление новости  в News. Негативный тест, должен падать");
-         newsOnMain.check(matches(isDisplayed()));
-         menuButton.perform(click());
-         materialTextView.perform(click());
-         editNewsButton.perform(click());
-         deleteButton(title).perform(click());
-         okButtonMessage.perform(click());
-         onView(withText(title)).check(matches(isDisplayed()));
+        newsOnMain.check(matches(isDisplayed()));
+        menuButton.perform(click());
+        materialTextView.perform(click());
+        editNewsButton.perform(click());
+        deleteButton(title).perform(click());
+        okButtonMessage.perform(click());
+        onView(withText(title)).check(matches(isDisplayed()));
 
     }
 
 
-    public void editingNews(String title, String newTitle)  {
+    public void editingNews(String title, String newTitle) {
         Allure.step("Редактирование новости - меняем название заголовка");
         newsOnMain.check(matches(isDisplayed()));
         menuButton.perform(click());

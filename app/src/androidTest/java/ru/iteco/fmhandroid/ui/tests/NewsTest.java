@@ -60,8 +60,8 @@ public class NewsTest {
 
     @Test
     public void createNewsTest() {
-        newsSteps.createNews("Объявление", "Объявление", "30.11.2024",
-                "06:00", "Party");
+        newsSteps.createNews("Объявление", "Объявление", "12.12.2024",
+                "06:00", "party");
 
     }
 
